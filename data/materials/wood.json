@@ -1,0 +1,8 @@
+{
+  "label": "wood",
+  "base_colour": "806641",
+  "colour_lerp": .5,
+  "attributes": [
+    "burnable"
+  ]
+}

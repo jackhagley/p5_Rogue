@@ -1,0 +1,8 @@
+{
+  "label": "stone",
+  "base_colour": "B1B1B1",
+  "colour_lerp": 1,
+  "attributes": [
+    "permanent"
+  ]
+}

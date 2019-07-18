@@ -1,0 +1,10 @@
+{
+  "label": "door",
+  "base_colour": "646464",
+  "size": 100,
+  "blocks_light": 100,
+  "attributes": [
+    "lockable",
+    "openable"
+  ]
+}
