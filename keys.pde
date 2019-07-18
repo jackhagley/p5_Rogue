@@ -2,7 +2,7 @@ void keyReleased()
 {
 
   //////MENU////////
-  if (game.state == STATE.MENU)
+  if (game.state == STATE.CURSOR)
   {
     switch(key)
     {
@@ -12,26 +12,26 @@ void keyReleased()
 
 
   //////PLAY////////
-  if (game.state == STATE.PLAYER_TURN)
+  if (game.state == STATE.HERO_TURN)
   {
     if (key == CODED)
     {
 
       if (keyCode == UP)
       {
-        player.move('n');
+        hero.move('n');
       }
       if (keyCode == DOWN)
       {
-        player.move('s');
+        hero.move('s');
       }
       if (keyCode == LEFT)
       {
-        player.move('w');
+        hero.move('w');
       }
       if (keyCode == RIGHT)
       {
-        player.move('e');
+        hero.move('e');
       }
     }
 
@@ -39,48 +39,31 @@ void keyReleased()
 
     switch(key)
     {
-    case 'p':
-      game.menuManager.goToMenu("pause");
+
+    case ' ':
+
       break;
-
-
-    case 'l':
-      light_debug = ! light_debug;
-      break;
-
 
     case 'r':
       game.reset();
       break;
 
-    case '=':
-      view.zoomIn(.1);
-      break;
-
-    case '-':
-      view.zoomOut(.1);
-      break;
-
-    case 'e':
-
-      break;
-
     case 'a':
-      player.turn(-PI/2);
+      hero.turn(-PI/2);
       view.rotate(PI/2);
       break;
 
     case 'd':
-      player.turn(PI/2);
+      hero.turn(PI/2);
       view.rotate(-PI/2);
       break;
 
     case 'w':
-      view.zoomIn(.3);
+      view.zoomIn(1);
       break;
 
     case 's':
-      view.zoomOut(.3);
+      view.zoomOut(1);
       break;
     }
   }

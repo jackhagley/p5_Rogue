@@ -51,7 +51,7 @@ class Viewer
     needs_light_update = true;
   }
 
-  void centreView(Player p)
+  void centreView(Hero p)
   {
     dloc.set(p.x, p.y);
     needs_light_update = true;
@@ -72,7 +72,7 @@ class Viewer
 
   void startView()
   {
-    loc = player.vectorLoc().copy();
+    loc = hero.vectorLoc().copy();
   }
 
   void zoomIn(float amount)
@@ -82,7 +82,7 @@ class Viewer
       dzoom+=amount;
     }
     setTileDrawLimits();
-        view.centreView(player);
+    view.centreView(hero);
 
   }
   void zoomOut(float amount)
@@ -92,12 +92,13 @@ class Viewer
       dzoom-=amount;
     }
     setTileDrawLimits();
-    view.centreView(player);
+    view.centreView(hero);
   }
 
 
   void setTileDrawLimits()
   {
+    ///this is kind of fucked
     n_tiles_draw_x = int(width / tile_size / zoom)+30;
     n_tiles_draw_y = int(height / tile_size / zoom )+30;
     needs_light_update = true;

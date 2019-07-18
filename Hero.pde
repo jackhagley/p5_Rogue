@@ -1,14 +1,14 @@
 
 PImage hero_sprite;
 
-class Player extends Creature
+class Hero extends Creature
 {
   int memory_size = int(random(30000, 100000)); //in action points
   PVector north;
   PVector east;
   PVector south;
   PVector west;
-  Player(Level l, Tile t)
+  Hero(Level l, Tile t)
   {
     super(l, t, "hero");
 

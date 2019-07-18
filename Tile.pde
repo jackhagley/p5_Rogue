@@ -120,7 +120,7 @@ class Tile
       }
 
       /////MASK
-      int amount = int(map(action_points_since_seen, 0, player.memory_size, 111, 255));
+      int amount = int(map(action_points_since_seen, 0, hero.memory_size, 111, 255));
       fill(22, amount);
       rect(0, 0, tile_size, tile_size);
       popStyle();
@@ -346,7 +346,7 @@ class Tile
       t.update();
     }
 
-    if (action_points_since_seen>player.memory_size)
+    if (action_points_since_seen>hero.memory_size)
     {
       becomeForgotten();
     }
@@ -372,7 +372,7 @@ class Tile
     {
       pushMatrix();
       translate((view.x()-x)*tile_size, (view.y()-y)*tile_size);  
-      if (player.fov.isVisible(this) )
+      if (hero.fov.isVisible(this) )
       {
         for (Thing thing : things)
         {

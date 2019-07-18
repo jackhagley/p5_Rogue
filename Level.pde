@@ -67,7 +67,7 @@ class Level
 
     for (Creature creature : creatures)
     {
-      if ( player.vectorLoc().dist(creature.vectorLoc()) < player.fov.radius )
+      if ( hero.vectorLoc().dist(creature.vectorLoc()) < hero.fov.radius )
       {
         visible_creatures.add(creature);
       }
@@ -137,7 +137,7 @@ class Level
         {
           if (creature.is_player)
           { 
-            game.state= STATE.PLAYER_TURN;
+            game.state= STATE.HERO_TURN;
             finding_next_ready_creature  = false;
           } else {
             game.state= STATE.GAME_TURN;
@@ -146,7 +146,7 @@ class Level
           }
         }
       }
-      if (ready_creatures.size()==0 && !player.isReady() )
+      if (ready_creatures.size()==0 && !hero.isReady() )
       {
         int amount_to_minus = visible_creatures.get(0).action_points;
         for (Creature creature : visible_creatures)
@@ -337,6 +337,6 @@ class Level
 
     popMatrix();
 
-    mouse.display();
+    //mouse.display();
   }
 }//class

@@ -31,7 +31,7 @@ class World
 
     current_level.registerCreatures();
 
-    mouse.update();
+    //mouse.update();
 
     current_level.update();
 

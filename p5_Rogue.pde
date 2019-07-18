@@ -2,7 +2,7 @@
 
 /*
 
-Prototype RogueLike Engine in Processing
+ Prototype RogueLike Engine in Processing
  
  multiple games against the clock
  - follow the white rabbit
@@ -25,16 +25,17 @@ Prototype RogueLike Engine in Processing
  how sound reflective are certain materials?
  
  access cursor with space
-
+ 
  
  */
 
 
 Game game;
 Viewer view;
-Player player;
-Mouse mouse;
+Hero hero;
+Cursor cursor;
 SpriteManager sm;
+
 
 ThingFactory thingfactory;
 
@@ -43,21 +44,17 @@ void setup()
   size(800, 600); 
   println("loading viewer");
   view = new Viewer();
-  centre = new PVector( width/2 , (height/2)-(tile_size/2) );
-  //centre_x = (width/2);
-  //centre_y = (height/2)-(tile_size/2);
-  println("loading sprites");
-  sm = new SpriteManager();
+  centre = new PVector( width/2, (height/2)-(tile_size/2) );
 
   thingfactory = new ThingFactory();
   println("loading things");
   game = new Game();
-  
+
   println("building game");
 
-  mouse = new Mouse();
+  //  mouse = new Mouse();
   println("game ready");
-  
+
   view.startView();
 }
 
