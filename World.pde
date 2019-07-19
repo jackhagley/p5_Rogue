@@ -28,15 +28,12 @@ class World
   void run()
   {
     background(22);
-
-    current_level.registerCreatures();
-
-    //mouse.update();
-
-    current_level.update();
-
-    current_level.readyCreatureAct();
-
+    if (game.state != STATE.CURSOR)
+    {
+      current_level.registerCreatures();
+      current_level.update();
+      current_level.readyCreatureAct();
+    }
     current_level.display();
   }
 }

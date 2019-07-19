@@ -61,33 +61,33 @@ class SpriteManager
   void printSprite(Thing t)
   {
     
-    float offset = tile_size / 2;
+    //float offset = tile_size / 2;
     
-    ///rotate with camera is broken
-    if (t.sprite_rotates)
-    {
-      //pushMatrix();
-      ////rotate(-view.rot);
-      //translate(offset, offset ,10);
+    /////rotate with camera is broken
+    //if (t.sprite_rotates)
+    //{
+    //  //pushMatrix();
+    //  ////rotate(-view.rot);
+    //  //translate(offset, offset ,10);
       
-      //fill(200, 0, 0);
-     //// rect(0,0,10,10);
+    //  //fill(200, 0, 0);
+    // //// rect(0,0,10,10);
     
-    }
-    //noStroke();
-    PImage sprite = sprites.get(t.sprite_name);
-    if(sprite!=null)
-    {
-    //image(sprite, -offset, -offset);
-    image(sprite, 0, 0);
-    }
+    //}
+    ////noStroke();
+    //PImage sprite = sprites.get(t.sprite_name);
+    //if(sprite!=null)
+    //{
+    ////image(sprite, -offset, -offset);
+    //image(sprite, 0, 0);
+    //}
     
-      //box(tile_size);
+    //  //box(tile_size);
 
-    if (t.sprite_rotates)
-    {
-      //popMatrix();
-    }
+    //if (t.sprite_rotates)
+    //{
+    //  //popMatrix();
+    //}
   }
 
 

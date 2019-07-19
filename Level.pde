@@ -124,44 +124,42 @@ class Level
   {
 
 
-    ///separate update and update view so that it saves processing all the light all the time
+      ///separate update and update view so that it saves processing all the light all the time
 
-    boolean finding_next_ready_creature = true;
+      boolean finding_next_ready_creature = true;
 
-    while (finding_next_ready_creature)
-    {
-
-      for (Creature creature : visible_creatures)
+      while (finding_next_ready_creature)
       {
-        if (creature.isReady())
+
+        for (Creature creature : visible_creatures)
         {
-          if (creature.is_player)
-          { 
-            game.state= STATE.HERO_TURN;
-            finding_next_ready_creature  = false;
-          } else {
-            game.state= STATE.GAME_TURN;
-            ready_creatures.add(creature);
-            finding_next_ready_creature  = false;
+          if (creature.isReady())
+          {
+            if (creature.is_player)
+            { 
+              game.state= STATE.HERO_TURN;
+              finding_next_ready_creature  = false;
+            } else {
+              game.state= STATE.GAME_TURN;
+              ready_creatures.add(creature);
+              finding_next_ready_creature  = false;
+            }
+          }
+        }
+        if (ready_creatures.size()==0 && !hero.isReady() )
+        {
+          int amount_to_minus = visible_creatures.get(0).action_points;
+          for (Creature creature : visible_creatures)
+          {
+            creature.deductActionPoints(amount_to_minus);
           }
         }
       }
-      if (ready_creatures.size()==0 && !hero.isReady() )
-      {
-        int amount_to_minus = visible_creatures.get(0).action_points;
-        for (Creature creature : visible_creatures)
-        {
-          creature.deductActionPoints(amount_to_minus);
-        }
-      }
-    }
+    
   }
 
-  void updateView()
+  void updateLight()
   {
-
-
-
     for (Tile tile : visible_tiles)
     {
       tile.noLongerSeen();
@@ -185,12 +183,10 @@ class Level
 
     for (Tile t : visible_tiles)
     {
-
       t.update();//clears the light level
     }
 
     for (Thing t : things)
-
     {
       t.update();
     }
@@ -256,6 +252,11 @@ class Level
       return tiles[x][y];
     }
     return null;
+  }
+  
+  boolean check_tile(float x, float y)
+  {
+   return check_tile(int(x),int(y)); 
   }
 
   boolean check_tile(int x, int y)

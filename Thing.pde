@@ -76,16 +76,14 @@ class Thing {
     level.things.add(this);
     tile.things.add(this);
   }
-  
-  
+
+
   void becomeKnown()
   {
-    
   }
-  
+
   void becomeForgotten()
   {
-    
   }
 
   void setAttributes(JSONObject item, JSONObject material)
@@ -226,7 +224,6 @@ class Thing {
       tile = level.getTile(x, y);
       tile.addThing(this);
     }
-    level.sortCreatures();
   }
 
 

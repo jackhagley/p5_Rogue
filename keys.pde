@@ -1,14 +1,6 @@
 void keyReleased()
 {
 
-  //////MENU////////
-  if (game.state == STATE.CURSOR)
-  {
-    switch(key)
-    {
-    }
-  }
-  //////MENU////////
 
 
   //////PLAY////////
@@ -34,38 +26,66 @@ void keyReleased()
         hero.move('e');
       }
     }
+  }
 
-
-
-    switch(key)
+  if (game.state == STATE.CURSOR)
+  {
+    if (key == CODED)
     {
 
-    case ' ':
-
-      break;
-
-    case 'r':
-      game.reset();
-      break;
-
-    case 'a':
-      hero.turn(-PI/2);
-      view.rotate(PI/2);
-      break;
-
-    case 'd':
-      hero.turn(PI/2);
-      view.rotate(-PI/2);
-      break;
-
-    case 'w':
-      view.zoomIn(1);
-      break;
-
-    case 's':
-      view.zoomOut(1);
-      break;
+      if (keyCode == UP)
+      {
+        cursor.move('n');
+      }
+      if (keyCode == DOWN)
+      {
+        cursor.move('s');
+      }
+      if (keyCode == LEFT)
+      {
+        cursor.move('w');
+      }
+      if (keyCode == RIGHT)
+      {
+        cursor.move('e');
+      }
     }
   }
-  //////PLAY////////
-}////keyreleased
+
+  switch(key)
+  {
+
+  case ' ':
+    game.cursorToggle();
+    break;
+
+  case 'r':
+    game.reset();
+    break;
+
+  case 'a':
+    if (game.state == STATE.HERO_TURN)
+    {
+      hero.turn(-PI/2);
+      view.rotate(PI/2);
+    }
+    break;
+
+  case 'd':
+    if (game.state == STATE.HERO_TURN)
+    {
+      hero.turn(PI/2);
+      view.rotate(-PI/2);
+    }
+    break;
+
+  case 'w':
+    view.zoomIn(.5);
+    break;
+
+  case 's':
+    view.zoomOut(.5);
+    break;
+  }
+}
+//////PLAY////////

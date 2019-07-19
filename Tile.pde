@@ -47,6 +47,10 @@ class Tile
 
   void increaseActionPoints(int amount)
   {
+    if(amount>10)
+    {
+    println(amount);
+    }
     action_points_since_seen+=amount;
   }
 
@@ -84,6 +88,9 @@ class Tile
     //if (is_known_to_player)
     //{
     pushMatrix();
+    
+    
+    
     translate((view.x()-x)*tile_size, (view.y()-y)*tile_size);
 
     fill(FILL);
@@ -127,19 +134,10 @@ class Tile
 
       //pushStyle();
       //fill(255);
+      //textSize(8);
       //noStroke();
-      //text(action_points_since_seen, tile_size, tile_size);
+      //text(action_points_since_seen, tile_size/2, tile_size/2);
       //popStyle();
-    }
-
-
-    if (is_highlighted)
-    {
-      pushStyle();
-      stroke(255);
-      noFill();
-      rect(0, 0, tile_size, tile_size);
-      popStyle();
     }
 
 
@@ -254,7 +252,10 @@ class Tile
   }
   void becomeKnown()
   {
+    if(!parent.known_tiles.contains(this))
+    {
     parent.known_tiles.add(this);
+    }
 
 
     if (!is_known_to_player)

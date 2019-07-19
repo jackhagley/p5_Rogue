@@ -7,6 +7,7 @@ class Viewer
   PVector dloc;//this is the GRID reference!
   float dzoom;
   float drot;
+  float z_speed;
 
   int n_tiles_draw_x;
   int n_tiles_draw_y;
@@ -28,7 +29,8 @@ class Viewer
     //println("ready to update viewer");
     update();
     //println("viewer updated");
-    speed = .1;
+    speed = .2;
+    z_speed = .1;
     //println("viewer ready");
     setTileDrawLimits();
   }
@@ -45,24 +47,23 @@ class Viewer
     needs_light_update = true;
   }
 
-  void centreView(Thing t)
+  void centreToHero()
   {
-    dloc.set(t.x, t.y);
-    needs_light_update = true;
+    centreView(hero);
   }
 
   void centreView(Hero p)
   {
     dloc.set(p.x, p.y);
-    needs_light_update = true;
+    //needs_light_update = true;
   }
 
   void setView(float x, float y)
   {
     dloc.set(x, y);
-    needs_light_update = true;
+    //needs_light_update = true;
   }
-  
+
   // void startView(Tile t)
   //{
   //  dloc.set(x, y);
@@ -75,32 +76,32 @@ class Viewer
     loc = hero.vectorLoc().copy();
   }
 
+
   void zoomIn(float amount)
   {
-    if (zoom<5)
+    if (zoom<3)
     {
       dzoom+=amount;
+      setTileDrawLimits();
+      //view.centreView(hero);
     }
-    setTileDrawLimits();
-    view.centreView(hero);
-
   }
   void zoomOut(float amount)
   {
-    if (zoom>.5)
+    if (zoom>1)
     {
       dzoom-=amount;
+      setTileDrawLimits();
+      //view.centreView(hero);
     }
-    setTileDrawLimits();
-    view.centreView(hero);
   }
 
 
   void setTileDrawLimits()
   {
     ///this is kind of fucked
-    n_tiles_draw_x = int(width / tile_size / zoom)+30;
-    n_tiles_draw_y = int(height / tile_size / zoom )+30;
+    n_tiles_draw_x = int(width / tile_size / zoom)+100;
+    n_tiles_draw_y = int(height / tile_size / zoom )+100;
     needs_light_update = true;
   }
 
@@ -112,7 +113,7 @@ class Viewer
 
 
     loc.lerp(dloc, speed);
-    zoom = lerp(zoom, dzoom, speed);
+    zoom = lerp(zoom, dzoom, z_speed);
 
     rot = lerp(rot, drot, speed);
     //rot = drot;
@@ -123,17 +124,6 @@ class Viewer
       needs_light_update = false;
     }
 
-    //if (drot<0)
-    //{
-    //  drot+=TWO_PI;
-    //  rot+=TWO_PI;
-    //}
-
-    //if (drot>TWO_PI)
-    //{
-    //  drot-=TWO_PI;
-    //  rot-=TWO_PI;
-    //}
   }
 
   float xx()

@@ -1,13 +1,24 @@
 
 PImage hero_sprite;
 
-class Hero extends Creature
+interface Controllable 
 {
-  int memory_size = int(random(30000, 100000)); //in action points
+
+
+  void setMoves();
+  PVector moveDirection(char c);
+}
+
+
+class Hero extends Creature implements Controllable
+{
   PVector north;
   PVector east;
   PVector south;
   PVector west;
+
+  int memory_size = int(random(3000, 10000)); //in action points
+
   Hero(Level l, Tile t)
   {
     super(l, t, "hero");
@@ -22,7 +33,7 @@ class Hero extends Creature
     is_known_to_player = true;
     fov.setRadius(100);
     setMoves();
-    move_action_points = 10;
+      move_action_points = 10;
     turn_action_points = 1;
     is_player = true;
     t.becomeKnown();
@@ -30,60 +41,44 @@ class Hero extends Creature
     hero_sprite = loadImage("sprites/hero.png");
   }
 
-
-
   void update()
   {
     super.update();
-    //tile.highlight();
-
-
     game.sc.computeVisibility(fov, x, y, fov.radius);
-
-
-    //needs_light_update = false;
   }
-
-
-  void needsLightUpdate()
-  {
-    //needs_light_update = true;
-  }
-
 
   void display(float light, boolean visible)
   {
     noStroke();
     fill(222, 0, 0);
     ellipse(tile_size/2, tile_size/2, tile_size, tile_size);
-    //sm.printSprite(this);
-
-    //image(sm.getSprite(sprite_name),200,200);
-    image(hero_sprite, tile_size/2, tile_size/2);
-    //image(hero_sprite,height/2,width/2);
   }
 
   void turn(float amount)
   {
     super.turn(amount);
     game.world.current_level.increaseActionPointsOfKnownTiles(turn_action_points);
-    //game.state = STATE.GAME_TURN;
-  }
-
-  void setMoves()
-  {
-    north = new PVector(0, 1);
-    east = new PVector(-1, 0);
-    south = new PVector(0, -1);
-    west = new PVector(1, 0);
   }
 
   void move(char c)
   {
+    PVector moveVector = moveDirection(c);
 
+    if (canMove(moveVector))
+    {
 
+      super.move( int(moveVector.x), int(moveVector.y) );
+      tile.becomeKnown();
+      view.needs_light_update = true;
+      game.world.current_level.increaseActionPointsOfKnownTiles(move_action_points);
+      view.centreView(this);
+      game.state = STATE.GAME_TURN;
+    }
+  }
+
+  PVector moveDirection(char c)
+  {
     PVector moveVector = new PVector(0, 0);
-
     switch(c)
     {
     case 'n':
@@ -103,21 +98,14 @@ class Hero extends Creature
       break;
     }
 
-    moveVector = moveVector.rotate(-view.drot);
+    return moveVector.rotate(-view.drot);
+  }
 
-    if (canMove(moveVector))
-    {
-
-      super.move( int(moveVector.x), int(moveVector.y) );
-      tile.becomeKnown();
-     
-      view.needs_light_update = true;
-      game.world.current_level.increaseActionPointsOfKnownTiles(move_action_points);
-       view.centreView(this);
-      game.state = STATE.GAME_TURN;
-    }
-
-
-    //game.updateView();
+  void setMoves()
+  {
+    north = new PVector(0, 1);
+    east = new PVector(-1, 0);
+    south = new PVector(0, -1);
+    west = new PVector(1, 0);
   }
 }

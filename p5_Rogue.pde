@@ -26,6 +26,33 @@
  
  access cursor with space
  
+ a room is an oject that can be defined in json
+ objects have probalility of generation
+ 
+ rooms have probability
+ rooms effect the probability of items/materials appearing
+ a kitchen will have knives
+ creatures have probability according to the rooms
+ hot creatures do not spawn in cold places etc
+ 
+ what if the three factors were red, white and black?
+ playing cards (diamonds, hearts, spades, clubs)
+ 
+ or black and white
+ chess
+ piano
+ 
+ rock paper scissors
+ 
+ red blue green
+ 
+ 
+ when setting creatures can just label them as SLOW and that will be enough
+ 
+ 1000 actions is one second
+ 
+ ring menus like SoM! how to navigate?
+ 
  
  */
 
@@ -53,6 +80,8 @@ void setup()
   println("building game");
 
   //  mouse = new Mouse();
+  
+  cursor = new Cursor();
   println("game ready");
 
   view.startView();

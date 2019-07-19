@@ -1,8 +1,9 @@
-enum STATE {
-  CURSOR, 
-    HERO_TURN, 
-    GAME_TURN
-};
+enum STATE 
+{
+  HERO_TURN, 
+    GAME_TURN, 
+    CURSOR,
+}
 
 class Game
 {
@@ -11,16 +12,10 @@ class Game
   ShadowCast sc;
   HUD hud;
 
-
   Game()
   {
-    //state = STATE.MENU;
-
     state = STATE.HERO_TURN;
-
-    
     hud = new HUD();
-
     reset();
   }
 
@@ -28,49 +23,50 @@ class Game
   {
     game_is_ready = false;
     world = new World();
-
     Level start_level = world.levels.get(0);
     sc = new ShadowCast();
-
-
-    ///find open tile for player to start
-
-
-
-    //  while (!tile_found)
-    //{
-    //  //int x = int(random(0, world.current_level.x_size));
-    //  //int y = int(random(world.current_level.y_size*.1, world.current_level.y_size*.9));
-    //}
-
-
-
     Tile player_start_tile = start_level.stairs_down.get(0);
-
     hero = new Hero(start_level, player_start_tile);
-
     view.centreView(hero);
     hero.display(100, true);
-
     game_is_ready=true;
-    //updateView();
   }
 
   void updateView()
   {
-    world.current_level.updateView();
+    world.current_level.updateLight();
   }
 
   void run()
   {
     view.update();
+    world.run();
 
     if (state == STATE.CURSOR)
     {
+      cursor.run();
+    }
+  }
 
-    } else
-    {  
-      world.run();
+  void cursorToggle()
+  {
+    if (state == STATE.HERO_TURN)
+    {
+      state = STATE.CURSOR;
+      println("cursor on");
+      cursor.activate();
+      return;
+    }
+
+    if (
+      state == STATE.CURSOR)
+    {
+      state = STATE.HERO_TURN;
+      cursor.deactivate();
+      view.centreToHero();
+      updateView();
+      println("cursor off");
+      return;
     }
   }
 
