@@ -9,7 +9,10 @@ class Cursor implements Controllable
   PVector south;
   PVector west;
 
-  boolean open = false;
+  boolean cursor_active = false;
+  boolean menu_open = false;
+
+  RingMenu menu;
 
   Cursor()
   {
@@ -19,28 +22,84 @@ class Cursor implements Controllable
 
   void update()
   {
-    if (open)
+    if (cursor_active || menu_open)
     {
       view.setView(x, y);
     }
   }
 
 
+  void command()
+  {
+    if (key == CODED)
+    {
+
+      if (keyCode == UP)
+      {
+        cursor.move('n');
+      }
+      if (keyCode == DOWN)
+      {
+        cursor.move('s');
+      }
+      if (keyCode == LEFT)
+      {
+        cursor.move('w');
+      }
+      if (keyCode == RIGHT)
+      {
+        cursor.move('e');
+      }
+    }
+
+    switch(key)
+    {
+    case ' ':
+      game.cursorToggle();
+      break;
+
+    case 'r':
+
+      break;
+
+    case 'a':
+
+      break;
+
+    case 'd':
+
+      break;
+
+    case 'w':
+      openRingMenu();
+      break;
+
+    case 's':
+      //cursor.closeRingMenu();
+      break;
+    }
+  }
+
+
+  void menucommand()
+  {
+    
+    if (menu!=null)
+    {
+      menu.command();
+    }///menu null
+  }
+
+
   void move(char c)
   {
     PVector moveVector = moveDirection(c);
-
-    //Tile t = level.getTile(moveVector.x+x, moveVector.y+y);
-
     Tile tile_ = game.world.current_level.getTile(moveVector.x+x, moveVector.y+y);
-
-
     if (tile_!=null && game.world.current_level.known_tiles.contains(tile_) )
     {
-
-        x+=moveVector.x;
-        y+=moveVector.y;
-        tile = tile_;
+      x+=moveVector.x;
+      y+=moveVector.y;
+      tile = tile_;
     }
   }
 
@@ -99,12 +158,30 @@ class Cursor implements Controllable
   void activate()
   {
     resetToHero();
-    open = true;
+    cursor_active = true;
   }
 
   void deactivate()
   {
-    open = false;
+    cursor_active = false;
+    menu_open = false;
+  }
+
+  void openRingMenu()
+  {
+    menu = new RingMenu(tile);
+    game.state = STATE.MENU;
+    menu_open = true;
+    println("opening ring menu");
+  }
+
+  void closeRingMenu()
+  {
+    menu = null;
+    cursor_active = true;
+    game.state = STATE.CURSOR;
+    menu_open = false;
+    println("closing ring menu");
   }
 
   void resetToHero()

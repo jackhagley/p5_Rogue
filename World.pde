@@ -28,7 +28,7 @@ class World
   void run()
   {
     background(22);
-    if (game.state != STATE.CURSOR)
+    if (game.state == STATE.GAME_TURN)
     {
       current_level.registerCreatures();
       current_level.update();

@@ -2,7 +2,8 @@ enum STATE
 {
   HERO_TURN, 
     GAME_TURN, 
-    CURSOR,
+    CURSOR, 
+    MENU,
 }
 
 class Game
@@ -10,17 +11,17 @@ class Game
   STATE state;
   World world;
   ShadowCast sc;
-  HUD hud;
+  
+
 
   Game()
   {
-    state = STATE.HERO_TURN;
-    hud = new HUD();
     reset();
   }
 
   void reset()
   {
+    state = STATE.HERO_TURN;
     game_is_ready = false;
     world = new World();
     Level start_level = world.levels.get(0);
@@ -42,7 +43,7 @@ class Game
     view.update();
     world.run();
 
-    if (state == STATE.CURSOR)
+    if (state == STATE.CURSOR || state == STATE.MENU  )
     {
       cursor.run();
     }
@@ -58,8 +59,7 @@ class Game
       return;
     }
 
-    if (
-      state == STATE.CURSOR)
+    if (state == STATE.CURSOR || state == STATE.MENU )
     {
       state = STATE.HERO_TURN;
       cursor.deactivate();

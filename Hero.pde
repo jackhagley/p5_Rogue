@@ -33,12 +33,65 @@ class Hero extends Creature implements Controllable
     is_known_to_player = true;
     fov.setRadius(100);
     setMoves();
-      move_action_points = 10;
+    move_action_points = 10;
     turn_action_points = 1;
     is_player = true;
     t.becomeKnown();
     sprite_name = "hero";
     hero_sprite = loadImage("sprites/hero.png");
+  }
+
+  void command()
+  {
+    if (key == CODED)
+    {
+      if (keyCode == UP)
+      {
+        hero.move('n');
+      }
+      if (keyCode == DOWN)
+      {
+        hero.move('s');
+      }
+      if (keyCode == LEFT)
+      {
+        hero.move('w');
+      }
+      if (keyCode == RIGHT)
+      {
+        hero.move('e');
+      }
+    }
+
+    switch(key)
+    {
+    case ' ':
+      game.cursorToggle();
+      break;
+
+    case 'r':
+      game.reset();
+      break;
+
+    case 'a':
+      turn(-PI/2);
+      view.rotate(PI/2);
+      break;
+
+    case 'd':
+      turn(PI/2);
+      view.rotate(-PI/2);
+      break;
+
+    case 'w':
+      view.zoomIn(.5);
+      break;
+
+    case 's':
+      view.zoomOut(.5);
+      break;
+    }
+    return;
   }
 
   void update()
