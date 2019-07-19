@@ -9,6 +9,9 @@ class Viewer
   float drot;
   float z_speed;
 
+  float min_zoom = 1;
+  float max_zoom = 3;
+
   int n_tiles_draw_x;
   int n_tiles_draw_y;
 
@@ -35,6 +38,16 @@ class Viewer
     setTileDrawLimits();
   }
 
+  void setZoom(float amount)
+  {
+    dzoom = amount;
+  }
+
+  void zoomAtMax()
+  {
+    dzoom=max_zoom;
+  }
+
   void rotate(float amount)
   {
     //if(drot+amount>TWO_PI)
@@ -55,21 +68,12 @@ class Viewer
   void centreView(Hero p)
   {
     dloc.set(p.x, p.y);
-    //needs_light_update = true;
   }
 
   void setView(float x, float y)
   {
     dloc.set(x, y);
-    //needs_light_update = true;
   }
-
-  // void startView(Tile t)
-  //{
-  //  dloc.set(x, y);
-  //  loc.set(x, y);
-  //}
-
 
   void startView()
   {
@@ -79,20 +83,18 @@ class Viewer
 
   void zoomIn(float amount)
   {
-    if (zoom<3)
+    if (zoom<max_zoom)
     {
       dzoom+=amount;
       setTileDrawLimits();
-      //view.centreView(hero);
     }
   }
   void zoomOut(float amount)
   {
-    if (zoom>1)
+    if (zoom>min_zoom)
     {
       dzoom-=amount;
       setTileDrawLimits();
-      //view.centreView(hero);
     }
   }
 
@@ -110,8 +112,6 @@ class Viewer
 
 
     ///this should update if the view is rotated, so that the corners are drawn
-
-
     loc.lerp(dloc, speed);
     zoom = lerp(zoom, dzoom, z_speed);
 
@@ -123,7 +123,6 @@ class Viewer
       game.updateView();
       needs_light_update = false;
     }
-
   }
 
   float xx()

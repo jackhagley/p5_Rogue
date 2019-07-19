@@ -10,7 +10,6 @@ class RingMenu
 
   void command()
   {
-
     if (key == CODED)
     {
 
@@ -62,6 +61,7 @@ class RingMenu
 
   void display()
   {
+    ellipse(0,0,10,10);
   }
 
   void open()

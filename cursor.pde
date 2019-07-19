@@ -11,6 +11,9 @@ class Cursor implements Controllable
 
   boolean cursor_active = false;
   boolean menu_open = false;
+  
+  float zoom_state;
+  
 
   RingMenu menu;
 
@@ -153,6 +156,12 @@ class Cursor implements Controllable
     rect(-tile_size/2, -tile_size/2, tile_size, tile_size);
     popStyle();
     popMatrix();
+    
+    if(menu!=null && menu_open)
+    {
+     menu.display(); 
+    }
+    
   }
 
   void activate()
@@ -171,6 +180,8 @@ class Cursor implements Controllable
   {
     menu = new RingMenu(tile);
     game.state = STATE.MENU;
+    zoom_state = view.zoom;
+    view.zoomAtMax();
     menu_open = true;
     println("opening ring menu");
   }
@@ -180,6 +191,7 @@ class Cursor implements Controllable
     menu = null;
     cursor_active = true;
     game.state = STATE.CURSOR;
+    view.setZoom(zoom_state);
     menu_open = false;
     println("closing ring menu");
   }
