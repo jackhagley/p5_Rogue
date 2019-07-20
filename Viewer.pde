@@ -6,6 +6,8 @@ class Viewer
 
   PVector dloc;//this is the GRID reference!
   float dzoom;
+  float stored_zoom;
+
   float drot;
   float z_speed;
 
@@ -28,6 +30,8 @@ class Viewer
     dloc = new PVector(0, 0);
     dzoom = 2f;
     drot = rot;
+
+    storeZoom();
 
     //println("ready to update viewer");
     update();
@@ -58,6 +62,36 @@ class Viewer
 
     drot += amount;
     needs_light_update = true;
+  }
+
+  void storeZoom()
+  { 
+    if (withinZoomBounds(zoom))
+    {
+      stored_zoom = zoom;
+    }
+  }
+
+  void loadZoom()
+  {
+
+    dzoom = stored_zoom;
+  }
+
+
+  boolean withinZoomBounds(float amount)
+  {
+    if (amount < min_zoom)
+    {
+      return false;
+    }
+
+    if (amount > max_zoom)
+    {
+      return false;
+    }
+
+    return true;
   }
 
   void centreToHero()

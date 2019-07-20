@@ -11,9 +11,9 @@ class Cursor implements Controllable
 
   boolean cursor_active = false;
   boolean menu_open = false;
-  
-  float zoom_state;
-  
+
+
+
 
   RingMenu menu;
 
@@ -30,6 +30,8 @@ class Cursor implements Controllable
       view.setView(x, y);
     }
   }
+
+
 
 
   void command()
@@ -70,15 +72,15 @@ class Cursor implements Controllable
       break;
 
     case 'd':
-
-      break;
-
-    case 'w':
       openRingMenu();
       break;
 
+    case 'w':
+   view.zoomIn(.5);
+      break;
+
     case 's':
-      //cursor.closeRingMenu();
+   view.zoomOut(.5);
       break;
     }
   }
@@ -86,7 +88,7 @@ class Cursor implements Controllable
 
   void menucommand()
   {
-    
+
     if (menu!=null)
     {
       menu.command();
@@ -144,7 +146,6 @@ class Cursor implements Controllable
   {
     pushStyle();
     pushMatrix();
-
     scale(view.zoom, view.zoom);
     translate( (centre.x )/view.zoom, (centre.y )/view.zoom);///centred
     rotate(view.rot);
@@ -154,19 +155,22 @@ class Cursor implements Controllable
     stroke(255);
     strokeWeight(3/view.zoom);
     rect(-tile_size/2, -tile_size/2, tile_size, tile_size);
-    popStyle();
-    popMatrix();
-    
-    if(menu!=null && menu_open)
+    if (menu!=null && menu_open)
     {
-     menu.display(); 
+      menu.display();
     }
-    
+
+    popStyle();
+
+
+
+    popMatrix();
   }
 
   void activate()
   {
     resetToHero();
+    view.storeZoom();
     cursor_active = true;
   }
 
@@ -174,15 +178,17 @@ class Cursor implements Controllable
   {
     cursor_active = false;
     menu_open = false;
+    view.loadZoom();
   }
 
   void openRingMenu()
   {
     menu = new RingMenu(tile);
     game.state = STATE.MENU;
-    zoom_state = view.zoom;
+    //view.storeZoom();
     view.zoomAtMax();
     menu_open = true;
+    menu.open();
     println("opening ring menu");
   }
 
@@ -191,7 +197,7 @@ class Cursor implements Controllable
     menu = null;
     cursor_active = true;
     game.state = STATE.CURSOR;
-    view.setZoom(zoom_state);
+    view.loadZoom();
     menu_open = false;
     println("closing ring menu");
   }

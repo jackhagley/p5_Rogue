@@ -11,8 +11,8 @@ class Game
   STATE state;
   World world;
   ShadowCast sc;
-  
 
+  RingMenu menu;
 
   Game()
   {
@@ -47,6 +47,11 @@ class Game
     {
       cursor.run();
     }
+
+    if (state == STATE.MENU && menu!=null )
+    {
+      menu.run();
+    }
   }
 
   void cursorToggle()
@@ -64,6 +69,7 @@ class Game
       state = STATE.HERO_TURN;
       cursor.deactivate();
       view.centreToHero();
+      view.loadZoom();
       updateView();
       println("cursor off");
       return;

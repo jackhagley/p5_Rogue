@@ -1,11 +1,17 @@
 class RingMenu
 {
+  /////Theres a game inside the menus
+  /////they must be fun to use
+  
+  
   Tile tile;
 
   RingMenu(Tile t)
   {
     ///loads straight from tile
     this.tile = t;
+    game.menu = this;
+    
   }
 
   void command()
@@ -34,7 +40,7 @@ class RingMenu
     switch(key)
     {
     case ' ':
-      game.cursorToggle();
+      cancel();
       break;
 
     case 'r':
@@ -42,7 +48,7 @@ class RingMenu
       break;
 
     case 'a':
-
+   close();
       break;
 
     case 'd':
@@ -54,21 +60,44 @@ class RingMenu
       break;
 
     case 's':
-      cursor.closeRingMenu();
+      //close();
       break;
     }
   }
 
-  void display()
+  void update()
   {
-    ellipse(0,0,10,10);
   }
 
-  void open()
+  void display()
   {
+    ellipse(0, 0, tile_size*2, tile_size*2);
+  }
+
+  void cancel()
+  {
+    game.cursorToggle();
+     view.loadZoom();
+    game.menu = null;
   }
 
   void close()
   {
+    cursor.closeRingMenu();
+    view.loadZoom();
+    game.menu = null;
+  }
+
+
+
+  void open()
+  {
+    //view.storeZoom();
+  }
+
+  void run()
+  {
+    update();
+    display();
   }
 }
