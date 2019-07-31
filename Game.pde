@@ -29,7 +29,7 @@ class Game
     Tile player_start_tile = start_level.stairs_down.get(0);
     hero = new Hero(start_level, player_start_tile);
     view.centreView(hero);
-    hero.display(100, true);
+    hero.display();
     game_is_ready=true;
   }
 
@@ -50,7 +50,7 @@ class Game
 
     if (state == STATE.MENU && menu!=null )
     {
-      menu.run();
+      //menu.run();
     }
   }
 

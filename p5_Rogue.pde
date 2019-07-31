@@ -53,6 +53,13 @@
  
  ring menus like SoM! how to navigate?
  
+ keybinding JSON
+ 
+ brain JSON
+ behaviours are loaded like attributes, such as Wander, Hunt, Follow, Patrol, Retreat, Form Pack
+ Pack Animal Attribute = 
+ how does it choose between them? what are the conditions for each behaviour?
+ What are the stats that make up a Creature’s 
  
  */
 

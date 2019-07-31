@@ -47,9 +47,9 @@ class Tile
 
   void increaseActionPoints(int amount)
   {
-    if(amount>10)
+    if (amount>10)
     {
-    println(amount);
+      println(amount);
     }
     action_points_since_seen+=amount;
   }
@@ -88,9 +88,9 @@ class Tile
     //if (is_known_to_player)
     //{
     pushMatrix();
-    
-    
-    
+
+
+
     translate((view.x()-x)*tile_size, (view.y()-y)*tile_size);
 
     fill(FILL);
@@ -99,15 +99,13 @@ class Tile
     if (can_be_seen)
     {
       pushStyle();
-      //strokeWeight(.5);
-      //stroke(255);
       noStroke();
       rect(0, 0, tile_size, tile_size);
       fill(FILL);
 
       for (Thing t : things)
       {
-        t.display(light_level, true);
+        t.display();
       }
       popStyle();
     }
@@ -115,15 +113,13 @@ class Tile
     if (!can_be_seen && is_known_to_player)
     {
       pushStyle();
-      //strokeWeight(.5);
-      //stroke(0);
       noStroke();
-      //filter(BLUR,.5);
       rect(0, 0, tile_size, tile_size);
+      fill(FILL);
 
       for (Thing t : things)
       {
-        t.display(light_level, false);
+        t.display();
       }
 
       /////MASK
@@ -131,13 +127,6 @@ class Tile
       fill(22, amount);
       rect(0, 0, tile_size, tile_size);
       popStyle();
-
-      //pushStyle();
-      //fill(255);
-      //textSize(8);
-      //noStroke();
-      //text(action_points_since_seen, tile_size/2, tile_size/2);
-      //popStyle();
     }
 
 
@@ -161,22 +150,6 @@ class Tile
   {
     LINE = c;
   }
-
-  void knowndisplay()
-  {
-    //pushMatrix();
-    //translate((view.x()-x)*tile_size, (view.y()-y)*tile_size);
-    //noFill();
-    //strokeWeight(1);
-    //stroke(BASE_COLOUR, 255 );
-    //rect(0, 0, tile_size, tile_size);
-    //popMatrix();
-  }
-
-  //void setLight(float light)
-  //{
-  //  light_level = light;
-  //}
 
   void addLight(int lx, int ly, color c, float l, boolean from_player)
   {
@@ -252,9 +225,9 @@ class Tile
   }
   void becomeKnown()
   {
-    if(!parent.known_tiles.contains(this))
+    if (!parent.known_tiles.contains(this))
     {
-    parent.known_tiles.add(this);
+      parent.known_tiles.add(this);
     }
 
 
@@ -367,28 +340,28 @@ class Tile
   }
 
 
-  void displayThings()
-  {
-    if (is_known_to_player)
-    {
-      pushMatrix();
-      translate((view.x()-x)*tile_size, (view.y()-y)*tile_size);  
-      if (hero.fov.isVisible(this) )
-      {
-        for (Thing thing : things)
-        {
+  //void displayThings()
+  //{
+  //  if (is_known_to_player)
+  //  {
+  //    pushMatrix();
+  //    translate((view.x()-x)*tile_size, (view.y()-y)*tile_size);  
+  //    if (hero.fov.isVisible(this) )
+  //    {
+  //      for (Thing thing : things)
+  //      {
 
-          thing.display(light_level, true);
-        }
-      } else
-      {
-        for (Thing thing : things)
-        {
+  //        thing.display();
+  //      }
+  //    } else
+  //    {
+  //      for (Thing thing : things)
+  //      {
 
-          thing.display(light_level, false);
-        }
-      }
-      popMatrix();
-    }
-  }
+  //        thing.display();
+  //      }
+  //    }
+  //    popMatrix();
+  //  }
+  //}
 }

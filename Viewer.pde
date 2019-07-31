@@ -36,7 +36,7 @@ class Viewer
     //println("ready to update viewer");
     update();
     //println("viewer updated");
-    speed = .2;
+    speed = .1;
     z_speed = .1;
     //println("viewer ready");
     setTileDrawLimits();
@@ -66,15 +66,11 @@ class Viewer
 
   void storeZoom()
   { 
-    if (withinZoomBounds(zoom))
-    {
       stored_zoom = zoom;
-    }
   }
 
   void loadZoom()
   {
-
     dzoom = stored_zoom;
   }
 

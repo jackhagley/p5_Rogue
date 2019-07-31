@@ -28,7 +28,7 @@ class Hero extends Creature implements Controllable
     base_size = 10;
     LightSource torch = new LightSource(this);
     //InvisibleLight torch = new InvisibleLight(this);
-    torch.setRadius(100);
+    torch.setRadius(5);
     //torch.setColour(color(255));
     is_known_to_player = true;
     fov.setRadius(100);
@@ -100,7 +100,7 @@ class Hero extends Creature implements Controllable
     game.sc.computeVisibility(fov, x, y, fov.radius);
   }
 
-  void display(float light, boolean visible)
+  void display()
   {
     noStroke();
     fill(222, 0, 0);

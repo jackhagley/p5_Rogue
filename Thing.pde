@@ -159,7 +159,14 @@ class Thing {
 
   ////BASICS////////////////
 
-  void display(float light_level, boolean visible)
+  //void display(float light_level, boolean visible)
+  //{
+  //  fill(BASE_COLOUR);
+  //  rect(0, 0, tile_size, tile_size);
+  //  //sm.printSprite(this);
+  //}
+
+  void display()
   {
     fill(BASE_COLOUR);
     rect(0, 0, tile_size, tile_size);

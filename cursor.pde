@@ -76,11 +76,11 @@ class Cursor implements Controllable
       break;
 
     case 'w':
-   view.zoomIn(.5);
+      view.zoomIn(.5);
       break;
 
     case 's':
-   view.zoomOut(.5);
+      view.zoomOut(.5);
       break;
     }
   }
@@ -100,12 +100,18 @@ class Cursor implements Controllable
   {
     PVector moveVector = moveDirection(c);
     Tile tile_ = game.world.current_level.getTile(moveVector.x+x, moveVector.y+y);
-    if (tile_!=null && game.world.current_level.known_tiles.contains(tile_) )
-    {
-      x+=moveVector.x;
-      y+=moveVector.y;
-      tile = tile_;
-    }
+    //if (tile_!=null && game.world.current_level.known_tiles.contains(tile_) )
+    //{
+    //  x+=moveVector.x;
+    //  y+=moveVector.y;
+    //  tile = tile_;
+    //}
+    //if (tile_!=null && game.world.current_level.known_tiles.contains(tile_) )
+    //{
+    x+=moveVector.x;
+    y+=moveVector.y;
+    tile = tile_;
+    //}
   }
 
 
@@ -144,20 +150,46 @@ class Cursor implements Controllable
 
   void display()
   {
+    ///mask
+    noStroke();
+    fill(22, 200);
+    rect(0, 0, width, height);
+
+
+
     pushStyle();
     pushMatrix();
     scale(view.zoom, view.zoom);
     translate( (centre.x )/view.zoom, (centre.y )/view.zoom);///centred
+
     rotate(view.rot);
 
+    //translate(-(view.x()-x)*tile_size, -(view.y()-y)*tile_size);
+    pushMatrix();
+    translate(-tile_size/2, -tile_size/2);
+    //translate((view.x()-tile.x)*tile_size, (view.y()-tile.y)*tile_size);
+    tile.display();
+    popMatrix();
+
+    //tile.display();
+
+
     translate((view.x()-x)*tile_size, (view.y()-y)*tile_size);
+
+
+
+
+
     noFill();
-    stroke(255);
-    strokeWeight(3/view.zoom);
-    rect(-tile_size/2, -tile_size/2, tile_size, tile_size);
+
     if (menu!=null && menu_open)
     {
       menu.display();
+    } else
+    {
+      stroke(255);
+      strokeWeight(3/view.zoom);
+      rect(-tile_size/2, -tile_size/2, tile_size, tile_size);
     }
 
     popStyle();
@@ -183,6 +215,8 @@ class Cursor implements Controllable
 
   void openRingMenu()
   {
+    if(game.world.current_level.known_tiles.contains(tile))
+    {
     menu = new RingMenu(tile);
     game.state = STATE.MENU;
     //view.storeZoom();
@@ -190,6 +224,7 @@ class Cursor implements Controllable
     menu_open = true;
     menu.open();
     println("opening ring menu");
+    }
   }
 
   void closeRingMenu()
