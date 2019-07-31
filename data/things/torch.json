@@ -1,0 +1,10 @@
+{
+  "label": "torch",
+  "size": 5,
+  "blocks_light": 0,
+  "base_colour": "C8C8C8",
+  "colour_lerp": 0,
+  "attributes": [
+    "emitslight"
+  ]
+}

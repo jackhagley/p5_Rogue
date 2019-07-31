@@ -164,21 +164,15 @@ class Cursor implements Controllable
 
     rotate(view.rot);
 
-    //translate(-(view.x()-x)*tile_size, -(view.y()-y)*tile_size);
-    pushMatrix();
-    translate(-tile_size/2, -tile_size/2);
-    //translate((view.x()-tile.x)*tile_size, (view.y()-tile.y)*tile_size);
-    tile.display();
-    popMatrix();
-
-    //tile.display();
-
+    if (tile!=null&&!menu_open)
+    {
+      pushMatrix();
+      translate(-tile_size/2, -tile_size/2);
+      tile.display();
+      popMatrix();
+    }
 
     translate((view.x()-x)*tile_size, (view.y()-y)*tile_size);
-
-
-
-
 
     noFill();
 
@@ -215,15 +209,15 @@ class Cursor implements Controllable
 
   void openRingMenu()
   {
-    if(game.world.current_level.known_tiles.contains(tile))
+    if (game.world.current_level.known_tiles.contains(tile))
     {
-    menu = new RingMenu(tile);
-    game.state = STATE.MENU;
-    //view.storeZoom();
-    view.zoomAtMax();
-    menu_open = true;
-    menu.open();
-    println("opening ring menu");
+      menu = new RingMenu(tile);
+      game.state = STATE.MENU;
+      //view.storeZoom();
+      view.zoomAtMax();
+      menu_open = true;
+      menu.open();
+      println("opening ring menu");
     }
   }
 

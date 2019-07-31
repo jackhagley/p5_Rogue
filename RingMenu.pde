@@ -6,6 +6,8 @@ class RingMenu
   float ring_size = 3; ///multiplies by tile_size
   float display_ring_size;
   float line_thickness = 3f;
+  
+  Thing pointed_at;
 
 
   Tile tile;
@@ -83,17 +85,18 @@ class RingMenu
 
     pushMatrix();
     rotate(-view.rot-PI/2);
-    translate(-tile_size/2,-tile_size/2);
+    translate(-tile_size/2, -tile_size/2);
 
     float angle = TAU/tile.things.size();
+    float offset = 0;
 
-    for (int i = 0; i<tile.things.size(); i++)
+    for (int i = tile.things.size(); i>0; i--)
     {
       //rect(0, 0, 100, 100);
 
 
-      float x = display_ring_size/2*cos(angle);
-      float y = display_ring_size/2*sin(angle);
+      float x = display_ring_size/2*cos(offset+angle*i);
+      float y = display_ring_size/2*sin(offset+angle*i);
 
       pushMatrix();
 
@@ -101,10 +104,23 @@ class RingMenu
       //fill(255);
       //noStroke();
 
-      tile.things.get(i).display();
+      tile.things.get(i-1).display();
+
+
 
       popMatrix();
     }
+
+    noFill();
+    stroke(255);
+    strokeWeight(line_thickness/view.zoom);
+
+
+    popMatrix();///rotation
+
+    pushMatrix();
+    rotate(-view.rot-PI/2);
+    ellipse(display_ring_size/2, 0, tile_size*1.3, tile_size*1.3);
     popMatrix();///rotation
   }
 

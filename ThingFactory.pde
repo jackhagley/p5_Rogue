@@ -8,12 +8,16 @@ class ThingFactory
   ThingFactory()
   {
     ////build a JSON directory of the possible things
+    println("-building things library");
     dir = buildDirectory("things");
 
-    ////build a JSON of the possible materials (leave this until Thing Directory is Finished
+    ////build a JSON of the possible materials 
+    println("-building materials library");
     mat = buildDirectory("materials");
 
+
     ///build a JSON of possible attributes
+    println("-building attributes library");
     att = buildDirectory("attributes");
 
     ////When a thing is made it can only be made out of certain things
@@ -52,17 +56,25 @@ class ThingFactory
     java.io.File folder = new java.io.File(dataPath(directory+"/"));
     String[] filenames = folder.list();
     // println("loading "+filenames.length+" things");
-    //println(filenames);
-    for (int i = 0; i < filenames.length; i++) { 
+    for (int i = 0; i < filenames.length; i++)
+    { 
       String filename = filenames[i];
-      if (filename.equals(".DS_Store")) {
-        i--;
+      if (filename.equals(".DS_Store"))
+      {
+        //i--;
         continue;
       } else
       {
         JSONObject thing = loadJSONObject(directory+"/"+filename);
         String label = thing.getString("label");
-        output.put(label, thing);
+        if (!output.hasKey(label))
+        {
+          println("--adding "+label);
+          output.put(label, thing);
+        } else
+        {
+          println("--ERROR! duplicate "+label);
+        }
       }
     }//for loop 
 

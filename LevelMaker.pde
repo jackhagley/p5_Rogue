@@ -349,6 +349,13 @@ public class DungeonFactory {
     case 1:
       //Wall dirtwall = new Wall(input, input.tiles[x][y]);
       thingfactory.makeThing(level_under_construction, tile, "wall", "wood");
+      
+      if(A_in_B_chance(1,20))
+      {
+        println("making a torch");
+        thingfactory.makeThing(level_under_construction, tile, "torch", "wood");
+      }
+      
       //println("making a wall");
       break;
 

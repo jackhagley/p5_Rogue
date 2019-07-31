@@ -168,8 +168,13 @@ class Thing {
 
   void display()
   {
+    pushStyle();
+
+    noStroke();
     fill(BASE_COLOUR);
     rect(0, 0, tile_size, tile_size);
+
+    popStyle();
     //sm.printSprite(this);
   }
 
@@ -182,9 +187,9 @@ class Thing {
 
     for (Attribute a : attributes)
     {
-      if (a.active)
+      if (a.isActive())
       {
-        output*=a.size_mod;
+        output*=a.getAFloat("size_mod");
       }
     }
     return output;
@@ -246,4 +251,6 @@ class Thing {
   {
     return new PVector(x, y);
   }
+
+
 }

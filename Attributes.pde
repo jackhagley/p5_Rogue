@@ -2,13 +2,11 @@ class Attribute
 {
   ////certain attributes are given to an item because of it’s material
   ////eg wood gets the Burnable, Kill It With Fire attributes 
-  ////also some attributes are 
 
   ////Lockable is an attribute
   ////Openable is an attribute
-
-
   ////UNFORGETTABLE IS AN ATTRIBUTE
+  JSONObject props;
 
   String label;
   String type;
@@ -17,9 +15,9 @@ class Attribute
   //int cooldown
   //int duration
 
-  float size_mod = 1;
+  //float size_mod = 1;
 
-  boolean active = true;
+  //boolean active = true;
 
   float test_fail=0;
 
@@ -31,12 +29,13 @@ class Attribute
     this.label = label_;
 
 
-
+    
     //println("debug");
 
     ///gets the properties from the thing directory
-    JSONObject props = thingfactory.getAttribute(label);
+    props = thingfactory.getAttribute(label);
     init(t);
+
 
     //////copy over all of the properties to the attribute
     //try {
@@ -51,52 +50,98 @@ class Attribute
     //  println("Trying to build an attribute property for "+label+" that doesn’t exist");
     //}
 
-    setActive(props);
-    setSizeMod(props);
-    setColour(props);
+    //setActive(props);
+    //setSizeMod(props);
+    //setColour(props);
   }
 
-  void setColour(JSONObject props)
+  boolean isActive()
   {
-    thing.setBaseColour(props);///probably useless but might fuck things up in the future, who fucking knows
+    return getABoolean("active");
   }
 
-
-  void setSizeMod(JSONObject props)
+  boolean getABoolean(String input)
   {
-    if (props!=null && props.hasKey("size_mod"))
+    if (props!=null)
     {
-      size_mod= props.getFloat("size_mod");
+
+      if (props.hasKey(input))
+      {
+        return props.getBoolean(input);
+      }
+      println("Attribute "+input+" not defined for "+label+" in "+thing.label);
     }
-  }
-
-
-
-
-  void setActive(JSONObject props)
-  {
-    
-    if (props!=null && props.hasKey("active"))
+    else
     {
-      active = props.getBoolean("active");
+      ///props are null
+      //println(thing.label+" attribute props are null");
     }
+    return false;
   }
 
 
-  void toggle()
+  float getAFloat(String input)
   {
-    active=!active;
+    if (props!=null&&props.hasKey(input))
+    {
+      return props.getFloat(input);
+    }
+    println("Attribute "+input+" not defined for "+label+" in "+thing.label);
+    return -1;
   }
 
-  void activate()
+  String getAString(String input)
   {
-    active = true;
+    if (props!=null&&props.hasKey(input))
+    {
+      return props.getString(input);
+    }
+    println("Attribute "+input+" not defined for "+label+" in "+thing.label);
+    return "";
   }
 
-  void deactivate()
-  {
-    active = false;
-  }
+
+  //void setColour(JSONObject props)
+  //{
+  //  thing.setBaseColour(props);///probably useless but might fuck things up in the future, who fucking knows
+  //}
+
+
+  //void setSizeMod(JSONObject props)
+  //{
+  //  if (props!=null && props.hasKey("size_mod"))
+  //  {
+  //    size_mod= props.getFloat("size_mod");
+  //  }
+  //}
+
+
+
+
+  //void setActive(JSONObject props)
+  //{
+
+  //  if (props!=null && props.hasKey("active"))
+  //  {
+  //    active = props.getBoolean("active");
+  //  }
+  //}
+
+
+  //void toggle()
+  //{
+  //  active=!active;
+  //}
+
+  //void activate()
+  //{
+  //  active = true;
+  //}
+
+  //void deactivate()
+  //{
+  //  active = false;
+  //}
 
 
 

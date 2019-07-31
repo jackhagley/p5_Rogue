@@ -170,50 +170,50 @@ class Tile
 
 
 
-    for (Thing thing : things)
-    {
+    //for (Thing thing : things)
+    //{
 
-      //thing.display(l, true);
-      //if (dir>0 && dir<TWO_PI/4)
-      //{
-      //  //thing.sc = lerpColor(thing.nc, c, .5);
-      //  //thing.nc = c;
-      //  //thing.ec = c;
-      //  //thing.sc = c;
-      //  //thing.wc = c;
-      //  thing.wc = lerpColor(thing.wc, c, .5);
-      //}
+    //  //thing.display(l, true);
+    //  //if (dir>0 && dir<TWO_PI/4)
+    //  //{
+    //  //  //thing.sc = lerpColor(thing.nc, c, .5);
+    //  //  //thing.nc = c;
+    //  //  //thing.ec = c;
+    //  //  //thing.sc = c;
+    //  //  //thing.wc = c;
+    //  //  thing.wc = lerpColor(thing.wc, c, .5);
+    //  //}
 
-      //if (dir>TWO_PI/4 && dir<TWO_PI/2)
-      //{
-      //  //thing.sc = lerpColor(thing.nc, c, .5);
-      //  //thing.nc = c;
-      //  thing.nc = lerpColor(thing.nc, c, .5);
-      //  //thing.ec = c;
-      //  //thing.sc = c;
-      //  //thing.wc = c;
-      //}
+    //  //if (dir>TWO_PI/4 && dir<TWO_PI/2)
+    //  //{
+    //  //  //thing.sc = lerpColor(thing.nc, c, .5);
+    //  //  //thing.nc = c;
+    //  //  thing.nc = lerpColor(thing.nc, c, .5);
+    //  //  //thing.ec = c;
+    //  //  //thing.sc = c;
+    //  //  //thing.wc = c;
+    //  //}
 
-      //if (dir>TWO_PI/2 && dir<TWO_PI/4*3)
-      //{
-      //  //thing.sc = lerpColor(thing.nc, c, .5);
-      //  //thing.nc = c;
-      //  //thing.ec = c;
-      //  thing.ec = lerpColor(thing.ec, c, .5);
-      //  //thing.sc = c;
-      //  //thing.wc = c;
-      //}
+    //  //if (dir>TWO_PI/2 && dir<TWO_PI/4*3)
+    //  //{
+    //  //  //thing.sc = lerpColor(thing.nc, c, .5);
+    //  //  //thing.nc = c;
+    //  //  //thing.ec = c;
+    //  //  thing.ec = lerpColor(thing.ec, c, .5);
+    //  //  //thing.sc = c;
+    //  //  //thing.wc = c;
+    //  //}
 
-      //if (dir>TWO_PI/4*3 && dir<TWO_PI)
-      //{
-      //  //thing.sc = lerpColor(thing.nc, c, .5);
-      //  //thing.nc = c;
-      //  //thing.ec = c;
-      //  //thing.sc = c;
-      //  thing.sc = lerpColor(thing.sc, c, .5);
-      //  //thing.wc = c;
-      //}
-    }
+    //  //if (dir>TWO_PI/4*3 && dir<TWO_PI)
+    //  //{
+    //  //  //thing.sc = lerpColor(thing.nc, c, .5);
+    //  //  //thing.nc = c;
+    //  //  //thing.ec = c;
+    //  //  //thing.sc = c;
+    //  //  thing.sc = lerpColor(thing.sc, c, .5);
+    //  //  //thing.wc = c;
+    //  //}
+    //}
 
     //if(!from_player)
     //{
@@ -323,11 +323,26 @@ class Tile
     if (action_points_since_seen>hero.memory_size)
     {
       becomeForgotten();
-    }
+    } 
   }
 
   void addThing(Thing t)
   {
+    //int index = 0;
+    
+    //for (int i=0; i<things.size(); i++)
+    //{
+    // if(t.base_size<things.get(i).base_size)
+    // {
+    //   index=i;
+    // }
+    // else
+    // {
+    //  break; 
+    // }
+    //}
+    //things.add(index,t);
+    
     things.add(t);
   }
 

@@ -14,7 +14,7 @@
 
 
 
-boolean chance(float a, float b)
+boolean A_in_B_chance(float a, float b)
 {
  return (a/b) > random(1); 
   

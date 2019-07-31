@@ -80,11 +80,13 @@ void setup()
   view = new Viewer();
   centre = new PVector( width/2, (height/2)-(tile_size/2) );
 
-  thingfactory = new ThingFactory();
   println("loading things");
-  game = new Game();
+  thingfactory = new ThingFactory();
 
   println("building game");
+  game = new Game();
+
+
 
   //  mouse = new Mouse();
   
