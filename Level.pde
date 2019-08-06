@@ -124,38 +124,37 @@ class Level
   {
 
 
-      ///separate update and update view so that it saves processing all the light all the time
+    ///separate update and update view so that it saves processing all the light all the time
 
-      boolean finding_next_ready_creature = true;
+    boolean finding_next_ready_creature = true;
 
-      while (finding_next_ready_creature)
+    while (finding_next_ready_creature)
+    {
+
+      for (Creature creature : visible_creatures)
       {
-
-        for (Creature creature : visible_creatures)
+        if (creature.isReady())
         {
-          if (creature.isReady())
-          {
-            if (creature.is_player)
-            { 
-              game.state= STATE.HERO_TURN;
-              finding_next_ready_creature  = false;
-            } else {
-              game.state= STATE.GAME_TURN;
-              ready_creatures.add(creature);
-              finding_next_ready_creature  = false;
-            }
-          }
-        }
-        if (ready_creatures.size()==0 && !hero.isReady() )
-        {
-          int amount_to_minus = visible_creatures.get(0).action_points;
-          for (Creature creature : visible_creatures)
-          {
-            creature.deductActionPoints(amount_to_minus);
+          if (creature.is_player)
+          { 
+            game.state= STATE.HERO_TURN;
+            finding_next_ready_creature  = false;
+          } else {
+            game.state= STATE.GAME_TURN;
+            ready_creatures.add(creature);
+            finding_next_ready_creature  = false;
           }
         }
       }
-    
+      if (ready_creatures.size()==0 && !hero.isReady() )
+      {
+        int amount_to_minus = visible_creatures.get(0).action_points;
+        for (Creature creature : visible_creatures)
+        {
+          creature.deductActionPoints(amount_to_minus);
+        }
+      }
+    }
   }
 
   void updateLight()
@@ -253,10 +252,10 @@ class Level
     }
     return null;
   }
-  
+
   boolean check_tile(float x, float y)
   {
-   return check_tile(int(x),int(y)); 
+    return check_tile(int(x), int(y));
   }
 
   boolean check_tile(int x, int y)
@@ -307,19 +306,31 @@ class Level
 
     pushMatrix();
 
+    if (!ddd)
+    {
+      scale(view.zoom, view.zoom);
 
-    scale(view.zoom, view.zoom);
-    translate( (centre.x )/view.zoom, (centre.y )/view.zoom);///centred
-    rotate(view.rot);
+      if (iso)
+      {
+        scale(1, 0.707106781186548);
+      }
 
-    translate(-tile_size*.5, -tile_size*.5);///centred
-    //for (Tile t : known_tiles)
-    //{
-    //  if (visible_tiles.contains(t))
-    //  {
-    //    t.knowndisplay();
-    //  }
-    //}
+      translate( (centre.x )/view.zoom, (centre.y )/view.zoom);///centred
+      rotate(view.rot);
+      if (iso)
+      {
+        rotate(TAU/8f);
+      }
+
+      translate(-view.ts2(), -view.ts2() );///centred
+      //for (Tile t : known_tiles)
+      //{
+      //  if (visible_tiles.contains(t))
+      //  {
+      //    t.knowndisplay();
+      //  }
+      //}
+    }
 
 
     for (Tile t : visible_tiles)

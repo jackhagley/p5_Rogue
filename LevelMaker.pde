@@ -352,7 +352,7 @@ public class DungeonFactory {
       
       if(A_in_B_chance(1,20))
       {
-        println("making a torch");
+        //println("making a torch");
         thingfactory.makeThing(level_under_construction, tile, "torch", "wood");
       }
       

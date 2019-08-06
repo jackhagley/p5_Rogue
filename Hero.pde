@@ -38,7 +38,8 @@ class Hero extends Creature implements Controllable
     is_player = true;
     t.becomeKnown();
     sprite_name = "hero";
-    hero_sprite = loadImage("sprites/hero.png");
+    shape = loadShape("sprites/hero/chr_rain.obj");
+    ///hero_sprite = loadImage("sprites/hero.png");
   }
 
   void command()
@@ -84,11 +85,11 @@ class Hero extends Creature implements Controllable
       break;
 
     case 'w':
-      view.zoomIn(.5);
+      view.zoomIn();
       break;
 
     case 's':
-      view.zoomOut(.5);
+      view.zoomOut();
       break;
     }
     return;
@@ -98,13 +99,50 @@ class Hero extends Creature implements Controllable
   {
     super.update();
     game.sc.computeVisibility(fov, x, y, fov.radius);
+    tile.becomeKnown();
   }
 
   void display()
   {
     noStroke();
     fill(222, 0, 0);
-    ellipse(tile_size/2, tile_size/2, tile_size, tile_size);
+    ellipse(view.ts2(), view.ts2(), view.ts(), view.ts());
+    pushMatrix();
+
+    translate(view.ts2(), view.ts2(), 0);
+
+
+    noStroke();
+
+    shape.resetMatrix();
+    shape.rotateX(PI/2);
+    shape.applyMatrix(view.matrix2);
+    shape.translate(-view.ts2(), -view.ts2(),-view.ts2());
+    
+    ////rotates with view
+    shape.rotateZ(-view.rot);
+
+
+    //translate(view.ts2(), view.ts2(), 0);
+    //translate(-view.ts(), -view.ts(), view.ts());
+
+
+
+
+
+
+    //
+
+
+    //translate(-view.ts2(), 0, view.ts());
+
+    stroke(255);
+    strokeWeight(10);
+    point(0, 0, 0);
+    noStroke();
+    shape(shape);
+
+    popMatrix();
   }
 
   void turn(float amount)

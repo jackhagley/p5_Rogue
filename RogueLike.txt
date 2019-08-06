@@ -1,0 +1,122 @@
+RogueLike
+
+One of the first ideas for the RogueLike I had is that it was going to be cyberpunk.
+
+The things that haven’t changed:
+--Turn based
+--Time sensitive game-play
+---all actions take time, including inventory
+--Minimal UI / No HUD
+--Generative levels
+
+
+Cyberpunk elements
+--The City
+    central idea in cyberpunk is a dystopian metropolis
+--Technology
+    Hacking
+    Man/Machine Interface
+    Unintended consequences
+
+Story Elements
+--Motivations
+    push
+        Death / Danger
+        Hunger
+    pull
+        Rescue
+        Exploration
+        Answers 
+
+Other Ideas
+--Ecosystems are independent of Hero, you are a small part in a larger world
+--Memory
+--Limited Inventory Space
+--Exploration
+--Combat is secondary
+--Leveling should be latent somehow, you improve by equipment
+--The greater the challenge, the greater the rewards
+--Levels have a time of day
+--Mashup of themes as though different worlds are colliding
+--Prone/knockdown
+--Hit Points? How to show damage?
+
+•Futuristic Goth Ninja
+    You are a Cyborg Ninja, fighting the army of the undead in a futuristic city.
+            push:
+                You will be killed by Zeds
+
+            pull:
+                You must find someone or something
+
+        - You wake up in a hospital
+        - You do not know that you are a cyborg
+        - You learn how to use the ring menu
+        - SPOILER: You must travel inside the gate of Hell
+        - You can hear Zeds outside. Do you run, do you hide, or do you fight?
+        - Is the hospital a level, or is all the city on one level?
+        - You are just a prototype, and you don’t always function very well. Your memory only has a limited amount of space
+        - Silence/Power/Speed. You can pick two!
+        - Sound is important, you must be quiet, and you must be fast. But to be effective you need Power.
+        - You need to balance your 
+        - When the Zeds are after you, it is less important to be silent. You can hide in the shadows. The more that are after you, the more that will come.
+        - Fatal Strike (Powerful/Silent but SLOW)
+        - Fast Throw (Powerful/Fast but LOUD)
+        - Water Edge (Silent and Fast but WEAK)
+        - Remake yourself?
+        - Plug into the network and hack
+        - Hack yourself. Explore your own operating system.
+        - Dodge Ability means you can dodge bullets, or cut them out of the air
+        - Fighting on a tube train in the dark, the light shines through the window as the train moves
+        - Zombies can 
+        - Escape, save others
+        - Blood, darkness, death
+        - Before the Darkness Falls
+        - 
+
+•In a futuristic city of the future, you a small player fighting for recognition 
+    -Hacking: hack into networks, open doors.
+        Need to use the two worlds together
+    -
+
+•Your ship has crash landed on an Alien planet. 
+    Driven underground, you discover the an alien civilisation
+    TIME ELEMENT:   environment (heat/cold)
+                    hunger
+
+•You are one of humanity’s last survivor after the Apochalyse
+    In the ruins of a dead city, you must battle to survive
+    TIME ELEMENT:   environment
+                    hunger
+                    find the lift-off point to take you away
+
+•Waking in a strange place with no memory
+    You begin exploring a world like nothing anyone has ever seen
+
+•Upon entering a strange door you enter a new world
+    Begins in the normal world and gets stranger
+    -Alice in Wonderland
+    -Pan’s Labyrinth
+    -Labyrinth
+    -The Wizard of Oz
+
+
+
+
+
+The Scavenger in the Ruined City
+--larger, more open world
+--skyscrapers
+--learn about the alien world
+--would you go home to do research
+---how to display re
+--perhaps it could b
+
+Level generator is parametised
+--Peaceful>->Hostile
+--Cold>->Hot
+--Wet>->Dry
+This effects the kinds of environment and creatures that appear
+
+
+

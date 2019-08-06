@@ -17,7 +17,7 @@ class RingMenu
     ///loads straight from tile
     this.tile = t;
     game.menu = this;
-    display_ring_size = tile_size*ring_size;
+    display_ring_size = view.ts()*ring_size;
   }
 
   void command()
@@ -85,7 +85,14 @@ class RingMenu
 
     pushMatrix();
     rotate(-view.rot-PI/2);
-    translate(-tile_size/2, -tile_size/2);
+    
+        if (iso)
+    {
+      rotate(-TAU/8f);
+    }
+
+    
+    translate(-view.ts2(), -view.ts2() );
 
     float angle = TAU/tile.things.size();
     float offset = 0;
@@ -120,7 +127,7 @@ class RingMenu
 
     pushMatrix();
     rotate(-view.rot-PI/2);
-    ellipse(display_ring_size/2, 0, tile_size*1.3, tile_size*1.3);
+    ellipse(display_ring_size/2, 0, view.ts()*1.3, view.ts()*1.3);
     popMatrix();///rotation
   }
 

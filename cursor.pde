@@ -160,19 +160,32 @@ class Cursor implements Controllable
     pushStyle();
     pushMatrix();
     scale(view.zoom, view.zoom);
+        if(iso)
+    {
+     scale(1, 0.707106781186548);
+      
+    }
+
+
+
     translate( (centre.x )/view.zoom, (centre.y )/view.zoom);///centred
 
     rotate(view.rot);
+    if (iso)
+    {
+      rotate(TAU/8f);
+    }
+
 
     if (tile!=null&&!menu_open)
     {
       pushMatrix();
-      translate(-tile_size/2, -tile_size/2);
+      translate(-view.ts2(), -view.ts2());
       tile.display();
       popMatrix();
     }
 
-    translate((view.x()-x)*tile_size, (view.y()-y)*tile_size);
+    translate((view.x()-x)*view.ts(), (view.y()-y)*view.ts());
 
     noFill();
 
@@ -183,7 +196,7 @@ class Cursor implements Controllable
     {
       stroke(255);
       strokeWeight(3/view.zoom);
-      rect(-tile_size/2, -tile_size/2, tile_size, tile_size);
+      rect(-view.ts2(), -view.ts2(), view.ts(), view.ts());
     }
 
     popStyle();

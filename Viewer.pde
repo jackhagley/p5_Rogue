@@ -8,11 +8,18 @@ class Viewer
   float dzoom;
   float stored_zoom;
 
+  int tile_size  = 64;
+  float ts;
+
   float drot;
   float z_speed;
 
-  float min_zoom = 1;
-  float max_zoom = 3;
+  float min_zoom = .2;
+  float max_zoom = 2;
+  float zoom_increment = .1;
+
+  PMatrix3D matrix;
+  PMatrix3D matrix2;
 
   int n_tiles_draw_x;
   int n_tiles_draw_y;
@@ -26,6 +33,9 @@ class Viewer
     loc = new PVector(0, 0);
     zoom = 2f;
     rot = 0;
+
+    matrix = new PMatrix3D();
+    matrix2 = new PMatrix3D();
 
     dloc = new PVector(0, 0);
     dzoom = 2f;
@@ -52,6 +62,18 @@ class Viewer
     dzoom=max_zoom;
   }
 
+
+  float ts()
+  {
+    return ts;
+  }
+
+
+  float ts2()
+  {
+    return ts()*.5;
+  }
+
   void rotate(float amount)
   {
     //if(drot+amount>TWO_PI)
@@ -66,7 +88,7 @@ class Viewer
 
   void storeZoom()
   { 
-      stored_zoom = zoom;
+    stored_zoom = zoom;
   }
 
   void loadZoom()
@@ -129,17 +151,34 @@ class Viewer
   }
 
 
+  void zoomIn()
+  {
+    zoomIn(zoom_increment);
+  }
+
+  void zoomOut()
+  {
+    zoomOut(zoom_increment);
+  }
+
+
   void setTileDrawLimits()
   {
     ///this is kind of fucked
-    n_tiles_draw_x = int(width / tile_size / zoom)+100;
-    n_tiles_draw_y = int(height / tile_size / zoom )+100;
-    needs_light_update = true;
+    if (game_is_ready)
+    {
+      n_tiles_draw_x = int(width / view.ts())+10;
+      n_tiles_draw_y = int(height / view.ts())+10;
+      needs_light_update = true;
+    }
   }
 
   void update()
   {
+    ts = tile_size*zoom;
 
+    matrix.reset();
+    matrix2.reset();
 
     ///this should update if the view is rotated, so that the corners are drawn
     loc.lerp(dloc, speed);
@@ -153,6 +192,29 @@ class Viewer
       game.updateView();
       needs_light_update = false;
     }
+
+    float zoom_rot = map(zoom, min_zoom-zoom_increment, max_zoom, 0, PI/6);
+    float cam_height = map(zoom, min_zoom-zoom_increment, max_zoom, 300, 150);
+
+    float x = 150*sin(rot+zoom_rot);
+    float y = 150*cos(rot+zoom_rot);
+
+    if (game_is_ready && ddd)
+    {
+
+      //pushMatrix();
+      //rotateZ(.1);
+      perspective();
+      ortho(); 
+      camera(x, y, cam_height, 
+        0, 0, 0, 
+        0, 0, -1);
+
+      //popMatrix();
+    }
+    matrix.scale(ts());
+    matrix2= matrix.get();
+    matrix2.scale(.625);
   }
 
   float xx()

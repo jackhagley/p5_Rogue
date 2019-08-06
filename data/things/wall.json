@@ -4,5 +4,7 @@
   "blocks_light": 100,
   "base_colour": "C8C8C8",
   "attributes": [
-  ]
+  ],
+  "obj_name": "block_test_2.obj",
+  "class": "environment"
 }

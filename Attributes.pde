@@ -191,6 +191,7 @@ class LightSource extends Attribute
 
   void apply()
   {
+    //pointLight(255, 255, 255, thing.x, thing.y, 0);
     game.sc.computeVisibility(thing.x, thing.y, radius, COLOUR, from_player);
   }
 }

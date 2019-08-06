@@ -64,6 +64,13 @@
  */
 
 
+//boolean iso = true;
+boolean iso = false;
+
+////3D
+boolean ddd = true;
+
+
 Game game;
 Viewer view;
 Hero hero;
@@ -75,10 +82,18 @@ ThingFactory thingfactory;
 
 void setup()
 {
-  size(800, 600); 
+
+  size(800,600,P3D);////ddd
+  //size(800, 600);
+  
+  if(ddd)
+  {
+   ortho(); 
+  }
+  
   println("loading viewer");
   view = new Viewer();
-  centre = new PVector( width/2, (height/2)-(tile_size/2) );
+  centre = new PVector( width/2, (height/2)-view.ts2());
 
   println("loading things");
   thingfactory = new ThingFactory();
@@ -89,7 +104,7 @@ void setup()
 
 
   //  mouse = new Mouse();
-  
+
   cursor = new Cursor();
   println("game ready");
 
@@ -99,5 +114,6 @@ void setup()
 
 void draw()
 {
+  lights();
   game.run();
 }

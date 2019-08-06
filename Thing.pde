@@ -5,7 +5,7 @@ class Thing {
 
   Level level;
   Tile tile;
-  String sprite_name;
+
   int x, y;
   ArrayList<Attribute>attributes;
   int base_size;///kind of a hack for now;
@@ -20,6 +20,9 @@ class Thing {
   /// this is for shading with colour
   color nc, ec, sc, wc;///directional colour
   float nl, el, sl, wl;///directional level
+
+  String sprite_name;
+  PShape shape;
 
 
   boolean is_player = false;
@@ -70,6 +73,7 @@ class Thing {
     setAttributes(recipe, ingredients);
     setSize(recipe);
     setBlocksLight(recipe);
+    setObj(recipe);
     this.level = l;
     this.tile = t_;
     setLoc(tile);
@@ -152,6 +156,15 @@ class Thing {
     blocks_light = recipe.getFloat("blocks_light");
   }
 
+  void setObj(JSONObject recipe)
+  {
+
+    if (recipe!=null&&recipe.hasKey("obj_name")&&recipe.hasKey("class"))
+    {
+      shape = loadShape( "sprites/"+recipe.getString("class")+"/"+recipe.getString("obj_name" ));
+    }
+  }
+
   void setAttributes(JSONObject recipe)
   {
     JSONArray attributes_recipe = recipe.getJSONArray("attributes");
@@ -170,11 +183,49 @@ class Thing {
   {
     pushStyle();
 
+    pushMatrix();
+
+
+
+
+    if (iso)
+    {
+      rotate(-TAU/8f);
+      scale(1, 1.414213562373095);
+    }
+
+
+
     noStroke();
     fill(BASE_COLOUR);
-    rect(0, 0, tile_size, tile_size);
+
+    if (ddd)
+    {
+
+
+      if (shape!=null)
+      {
+        translate(view.ts2(), view.ts2(), 0);
+        shape.resetMatrix();
+        shape.rotateX(PI/2);
+        shape.applyMatrix(view.matrix2);
+        shape.translate(-view.ts2(), -view.ts2(), -view.ts()*1.2 );
+        shape(shape);
+      } else
+      {
+        translate(view.ts2(), view.ts2(), view.ts2());
+        box(view.ts(), view.ts(), view.ts() );
+      }
+    } else
+    {
+      rect(0, 0, view.ts(), view.ts());
+    }
+
 
     popStyle();
+
+    popMatrix();
+
     //sm.printSprite(this);
   }
 
@@ -251,6 +302,4 @@ class Thing {
   {
     return new PVector(x, y);
   }
-
-
 }

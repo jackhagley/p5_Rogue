@@ -91,7 +91,7 @@ class Tile
 
 
 
-    translate((view.x()-x)*tile_size, (view.y()-y)*tile_size);
+    translate((view.x()-x)*view.ts(), (view.y()-y)*view.ts());
 
     fill(FILL);
 
@@ -100,7 +100,7 @@ class Tile
     {
       pushStyle();
       noStroke();
-      rect(0, 0, tile_size, tile_size);
+      rect(0, 0, view.ts(), view.ts());
       fill(FILL);
 
       for (Thing t : things)
@@ -114,7 +114,7 @@ class Tile
     {
       pushStyle();
       noStroke();
-      rect(0, 0, tile_size, tile_size);
+      rect(0, 0, view.ts(), view.ts());
       fill(FILL);
 
       for (Thing t : things)
@@ -125,7 +125,7 @@ class Tile
       /////MASK
       int amount = int(map(action_points_since_seen, 0, hero.memory_size, 111, 255));
       fill(22, amount);
-      rect(0, 0, tile_size, tile_size);
+      rect(0, 0, view.ts(), view.ts());
       popStyle();
     }
 

@@ -1,5 +1,8 @@
 class ThingFactory
 {
+
+  
+
   JSONObject dir;
   JSONObject mat;
   JSONObject att;
@@ -7,6 +10,7 @@ class ThingFactory
 
   ThingFactory()
   {
+    
     ////build a JSON directory of the possible things
     println("-building things library");
     dir = buildDirectory("things");
