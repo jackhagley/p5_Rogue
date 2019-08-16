@@ -21,8 +21,9 @@ class Thing {
   color nc, ec, sc, wc;///directional colour
   float nl, el, sl, wl;///directional level
 
-  String sprite_name;
-  PShape shape;
+  String sprite_name = "no_sprite";
+  //PShape shape;
+  String category = "category not set";
 
 
   boolean is_player = false;
@@ -73,7 +74,8 @@ class Thing {
     setAttributes(recipe, ingredients);
     setSize(recipe);
     setBlocksLight(recipe);
-    setObj(recipe);
+    //setObj(recipe);
+    sm.setSprite(this,recipe);
     this.level = l;
     this.tile = t_;
     setLoc(tile);
@@ -158,11 +160,11 @@ class Thing {
 
   void setObj(JSONObject recipe)
   {
-
-    if (recipe!=null&&recipe.hasKey("obj_name")&&recipe.hasKey("class"))
-    {
-      shape = loadShape( "sprites/"+recipe.getString("class")+"/"+recipe.getString("obj_name" ));
-    }
+    println("setObj is no longer used");
+    //    if (recipe!=null&&recipe.hasKey("obj_name")&&recipe.hasKey("class"))
+    //    {
+    //      shape = loadShape( "sprites/"+recipe.getString("class")+"/"+recipe.getString("obj_name" ));
+    //    }
   }
 
   void setAttributes(JSONObject recipe)
@@ -201,22 +203,33 @@ class Thing {
 
     if (ddd)
     {
-
-
-      if (shape!=null)
+      if (!sprite_name.equals("no_sprite"))
       {
-        translate(view.ts2(), view.ts2(), 0);
-        shape.resetMatrix();
-        shape.rotateX(PI/2);
-        shape.applyMatrix(view.matrix2);
-        shape.translate(-view.ts2(), -view.ts2(), -view.ts()*1.2 );
-        shape(shape);
+        //println("sprites motherfuckers, do you have them??");
+        //translate(view.ts2(), view.ts2(), view.ts2());
+        sm.printSprite(this);
       } else
       {
         translate(view.ts2(), view.ts2(), view.ts2());
         box(view.ts(), view.ts(), view.ts() );
       }
+
+      //if (shape!=null)
+      //{
+      //  translate(view.ts2(), view.ts2(), 0);
+      //  shape.resetMatrix();
+      //  shape.rotateX(PI/2);
+      //  shape.applyMatrix(view.matrix2);
+      //  shape.translate(-view.ts2(), -view.ts2(), -view.ts()*1.2 );
+      //  shape(shape);
+      //} else
+      //{
+      //  translate(view.ts2(), view.ts2(), view.ts2());
+      //  box(view.ts(), view.ts(), view.ts() );
+      //}
     } else
+
+
     {
       rect(0, 0, view.ts(), view.ts());
     }

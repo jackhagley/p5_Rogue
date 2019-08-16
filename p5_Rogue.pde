@@ -97,6 +97,7 @@ void setup()
 
   println("loading things");
   thingfactory = new ThingFactory();
+  sm = new SpriteManager();
 
   println("building game");
   game = new Game();

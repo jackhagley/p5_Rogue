@@ -16,6 +16,8 @@ class Hero extends Creature implements Controllable
   PVector east;
   PVector south;
   PVector west;
+  
+  PShape shape;
 
   int memory_size = int(random(3000, 10000)); //in action points
 

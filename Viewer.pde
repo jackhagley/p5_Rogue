@@ -27,6 +27,7 @@ class Viewer
   float speed;
 
   boolean needs_light_update = true;
+  //boolean zoom_changed = true;
 
   Viewer()
   {
@@ -55,11 +56,13 @@ class Viewer
   void setZoom(float amount)
   {
     dzoom = amount;
+
   }
 
   void zoomAtMax()
   {
     dzoom=max_zoom;
+
   }
 
 
@@ -94,6 +97,7 @@ class Viewer
   void loadZoom()
   {
     dzoom = stored_zoom;
+
   }
 
 
@@ -139,6 +143,7 @@ class Viewer
     {
       dzoom+=amount;
       setTileDrawLimits();
+
     }
   }
   void zoomOut(float amount)
@@ -147,6 +152,7 @@ class Viewer
     {
       dzoom-=amount;
       setTileDrawLimits();
+
     }
   }
 
@@ -201,11 +207,11 @@ class Viewer
 
     if (game_is_ready && ddd)
     {
-
+ 
       //pushMatrix();
       //rotateZ(.1);
       perspective();
-      ortho(); 
+      //ortho(); 
       camera(x, y, cam_height, 
         0, 0, 0, 
         0, 0, -1);
@@ -214,7 +220,8 @@ class Viewer
     }
     matrix.scale(ts());
     matrix2= matrix.get();
-    matrix2.scale(.625);
+    //matrix2.scale(.625);//for 16
+    matrix2.scale(.4);//for 25
   }
 
   float xx()

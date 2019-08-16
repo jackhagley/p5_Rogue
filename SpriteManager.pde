@@ -1,29 +1,75 @@
 class SpriteManager
 {
   /*
-  Serves Sprites
-  
-  Sprites are built from pieces
-  Colours are chosen by materials and by lighting
-  
-  
-  
-  */
-  
-  
-  
+ stores different sizes of sprites
+   */
+
+
+
   String name_of_folder = "sprites/";
-  HashMap<String, PImage> sprites;
+  HashMap<String, PShape> environment_sprites;
 
   SpriteManager()
   {
-    sprites = new HashMap<String, PImage>();
-    loadSprites();
+    //environment_sprites = loadSprites("environment");
+    environment_sprites = new HashMap<String, PShape>();
   }
 
-  void loadSprites()
+
+  void printSprite(Thing thing)
   {
-    java.io.File folder = new java.io.File(dataPath("sprites/"));
+    String sp_label = thing.sprite_name;
+    String category = thing.category;
+
+
+    if (category.equals("environment"))
+    {
+      //println("environment sprite");
+      PShape shape = getSprite(sp_label);
+      shape.applyMatrix(view.matrix);
+      shape(shape);
+    } else
+    {
+      println( sp_label);
+      println( category);
+    }
+  }
+
+  void setSprite(Thing thing, JSONObject recipe)
+  {
+    String sp_name = "no_sprite";
+
+    if (recipe!=null&&recipe.hasKey("obj_name")&&recipe.hasKey("category"))
+    {
+      sp_name = recipe.getString("obj_name");
+      String category = recipe.getString("category");
+      String lookup = name_of_folder+category+"/"+sp_name;
+
+      if (category.equals("environment"))
+      {
+        if (!environment_sprites.containsKey(sp_name))
+        {
+          PShape shape = loadShape(lookup);
+          shape.resetMatrix();
+          shape.rotateX(PI/2);
+          //shape.applyMatrix(view.matrix);
+          //shape.scale(64/13f);
+          //shape.translate(-view.ts2(), -view.ts2(), -view.ts()*1.2 );
+
+          println(lookup);
+          environment_sprites.put(sp_name, shape);
+        }
+      }
+
+      thing.sprite_name = sp_name;
+      thing.category = category;
+    }
+  }
+
+  HashMap<String, PShape> loadSprites(String sub_folder)
+  {
+    HashMap<String, PShape> output = new HashMap<String, PShape>();
+    java.io.File folder = new java.io.File(dataPath(name_of_folder+sub_folder+"/"));
     String[] filenames = folder.list();
     println("loading "+filenames.length+" sprites");
     for (int i = 0; i < filenames.length; i++) { 
@@ -33,62 +79,30 @@ class SpriteManager
         continue;
       }
       String name = filename.substring(0, filename.length()-4);
-      PImage sprite = loadImage(name_of_folder+filename);
+      PShape sprite = loadShape(name_of_folder+filename);
       //println(name +" sprite loaded");
-       //sprite.resize(64, 64);
-      sprites.put(name, sprite);
+      //sprite.resize(64, 64);
+      environment_sprites.put(name, sprite);
     }//for loop
+
+    return output;
   }
 
-  PImage getSprite(String n)
+  PShape getSprite(String n)
   {
 
-    PImage sprite = sprites.get(n);
+    PShape sprite = environment_sprites.get(n);
 
     if (sprite!=null)
     {
-      //if (sprite.width - tile_size != 0 || sprite.height - tile_size != 0)
-      //{
-       
-      //}
-      //println(n);
+      //println("I got yer sprite riiiight here");
       return sprite;
     }
     println("no sprite :(");
     return null;
   }
 
-  void printSprite(Thing t)
-  {
-    
-    //float offset = tile_size / 2;
-    
-    /////rotate with camera is broken
-    //if (t.sprite_rotates)
-    //{
-    //  //pushMatrix();
-    //  ////rotate(-view.rot);
-    //  //translate(offset, offset ,10);
-      
-    //  //fill(200, 0, 0);
-    // //// rect(0,0,10,10);
-    
-    //}
-    ////noStroke();
-    //PImage sprite = sprites.get(t.sprite_name);
-    //if(sprite!=null)
-    //{
-    ////image(sprite, -offset, -offset);
-    //image(sprite, 0, 0);
-    //}
-    
-    //  //box(tile_size);
 
-    //if (t.sprite_rotates)
-    //{
-    //  //popMatrix();
-    //}
-  }
 
 
   //void printSprite(String n, boolean rotate_with_camera)
